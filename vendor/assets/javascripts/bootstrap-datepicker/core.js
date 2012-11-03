@@ -681,7 +681,7 @@
 		},
 		dateUpdated: function(e){
 			var dp = $(e.target).data('datepicker'),
-				new_date = e.date,
+				new_date = DPGlobal.parseDate(e.date, this.format, this.language),
 				i = $.inArray(e.target, this.inputs),
 				l = this.inputs.length;
 			if (i == -1) return;
