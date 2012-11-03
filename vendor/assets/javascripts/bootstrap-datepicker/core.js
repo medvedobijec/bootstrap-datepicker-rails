@@ -485,6 +485,7 @@
 						break;
 				}
 			}
+			$(this.element)[0].focus();
 		},
 
 		_setDate: function(date, which){
