@@ -404,6 +404,7 @@
 			e.stopPropagation();
 			e.preventDefault();
 			var target = $(e.target).closest('span, td, th');
+
 			if (target.length == 1) {
 				switch(target[0].nodeName.toLowerCase()) {
 					case 'th':
@@ -713,7 +714,7 @@
 			if (!data) {
 				if ($this.is('.input-daterange')){
 					var opts = {
-							inputs: $this.find('input').toArray()
+							inputs: $this.find('input.input-date').toArray()
 						};
 					$this.data('datepicker', (data = new DateRangePicker($.extend(opts, $.fn.datepicker.defaults,options))));
 				}
