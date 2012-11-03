@@ -175,7 +175,9 @@
 			this.setValue();
 		},
 
-		setValue: function() {
+		setValue: function(new_date) {
+			if (new_date)
+				this.date = new_date;
 			var formatted = DPGlobal.formatDate(this.date, this.format, this.language);
 
 			if (!this.isInput) {
@@ -321,26 +323,9 @@
 				if (prevMonth.getUTCDay() == this.weekStart) {
 					html.push('<tr>');
 				}
-				clsName = '';
-				if (prevMonth.getUTCFullYear() < year || (prevMonth.getUTCFullYear() == year && prevMonth.getUTCMonth() < month)) {
-					clsName += ' old';
-				} else if (prevMonth.getUTCFullYear() > year || (prevMonth.getUTCFullYear() == year && prevMonth.getUTCMonth() > month)) {
-					clsName += ' new';
-				}
-				// Compare internal UTC date with local today, not UTC today
-				if (this.todayHighlight &&
-					prevMonth.getUTCFullYear() == today.getFullYear() &&
-					prevMonth.getUTCMonth() == today.getMonth() &&
-					prevMonth.getUTCDate() == today.getDate()) {
-					clsName += ' today';
-				}
-				if (prevMonth.valueOf() == currentDate) {
-					clsName += ' active';
-				}
-				if (prevMonth.valueOf() < this.startDate || prevMonth.valueOf() > this.endDate) {
-					clsName += ' disabled';
-				}
-				html.push('<td class="day'+clsName+'">'+prevMonth.getUTCDate() + '</td>');
+				clsName = this.getClassNames(prevMonth);
+				clsName.push('day');
+				html.push('<td class="'+clsName.join(' ')+'">'+prevMonth.getDate() + '</td>');
 				if (prevMonth.getUTCDay() == this.weekEnd) {
 					html.push('</tr>');
 				}
