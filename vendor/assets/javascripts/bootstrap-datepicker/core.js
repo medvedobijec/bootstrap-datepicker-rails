@@ -486,7 +486,6 @@
 						break;
 				}
 			}
-			$(this.element)[0].focus();
 		},
 
 		_setDate: function(date, which){
@@ -509,7 +508,9 @@
 			if (element) {
 				element.change();
 				if (this.autoclose) {
-									this.hide();
+					this.hide();
+				} else {
+					$(element)[0].focus();
 				}
 			}
 		},
@@ -690,7 +691,7 @@
 
 			if (new_date < this.dates[i]){
 				// Date being moved earlier/left
-				while (i && new_date < this.dates[i]){
+				while (i >= 0 && new_date < this.dates[i]){
 					this.pickers[i--].setValue(new_date);
 				}
 			}
