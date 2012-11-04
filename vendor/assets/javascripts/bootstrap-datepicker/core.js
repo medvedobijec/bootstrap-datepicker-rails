@@ -168,6 +168,10 @@
 
 		setDate: function(d) {
 			this.setUTCDate(new Date(d.getTime() - (d.getTimezoneOffset()*60000)));
+			this.element.trigger({
+				type: 'changeDate',
+				date: d
+			});
 		},
 
 		setUTCDate: function(d) {
@@ -688,6 +692,13 @@
 				i = $.inArray(e.target, this.inputs),
 				l = this.inputs.length;
 			if (i == -1) return;
+
+			if ($(this.pickers[0].element).val() == "" || $(this.pickers[1].element).val() == "") {
+				var n = 0;
+				while (n<l){
+					this.pickers[n++].setValue(new_date);
+				}
+			}
 
 			if (new_date < this.dates[i]){
 				// Date being moved earlier/left
